@@ -11,6 +11,10 @@ const LongPulling = () => {
 
     const subscribe = async () => {
         const eventSource = new EventSource('http://localhost:5000/connect')
+        eventSource.onmessage = function (event) {
+            const message = JSON.parse(event.data);
+            setMessages(prev => [message, ...prev])
+        }
     }
 
     const sendMessage = async () => {
